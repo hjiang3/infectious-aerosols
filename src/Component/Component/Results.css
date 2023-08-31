@@ -1,0 +1,22 @@
+ 
+  .result-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0px;
+    fontFamily: 'Arial';
+    fontSize: '1rem';
+    animation: pulse 1s infinite;
+  }
+  
+  
+  .compliant {
+    color: #006400;
+  }
+  
+  .noncompliant {
+    color: #990000;
+  }
+  
+  .compliant span, .noncompliant span {
+    marginRight: '10px';
+  }

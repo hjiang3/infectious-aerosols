@@ -1,0 +1,83 @@
+.radio-buttons {
+    display: flex;
+  }
+  
+  .radio-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 1px;
+    background-color: #ddd;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .radio-button.selected {
+    background-color: #888;
+    color: white;
+  }
+
+.square-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* Adjust the width as needed */
+  height: 30px;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wider-button {
+  width: 150px; /* Adjust the width as needed */
+}
+
+.square-button.selected {
+  background-color: #888;
+  color: white;
+}
+
+input[type="number"] {
+  width: 80px; /* Adjust the width as needed */
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 3px 10px;
+  font-family: Arial;
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
+
+
+.radio-buttons {
+  display: flex;
+}
+
+.radio-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 1px;
+  background-color: #ddd;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.radio-button.selected {
+  background-color: #888;
+  color: white;
+}
+
+
+

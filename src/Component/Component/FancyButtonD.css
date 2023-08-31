@@ -1,0 +1,50 @@
+.fancy-buttonD {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .fancy-buttonD:hover {
+    font-size: 1rem;
+  }
+  
+  .fancy-buttonD:active {
+    transform: translateY(-1px);
+  }
+
+  .popup2 {
+    position: fixed;
+    top: 50%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 780px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .popupS {
+    position: fixed;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 400px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }

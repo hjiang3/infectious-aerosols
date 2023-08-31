@@ -1,0 +1,20 @@
+.fancy-button4 {
+    background:  rgb(47, 134, 205); /* Adjusted blue color, slightly stronger */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button4:hover {
+    box-shadow: 0 5px 7px 3px rgba(47, 134, 205, .5); /* Corresponding adjusted shade for hover effect */
+    transform: translateY(-3px);
+}
+
+.fancy-button4:active {
+    transform: translateY(-1px);
+}

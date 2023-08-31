@@ -1,0 +1,34 @@
+.fancy-button6 {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: green;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .fancy-button6:hover {
+    font-size: 1.2rem;
+  }
+  
+  .fancy-button6:active {
+    transform: translateY(-1px);
+  }
+
+  .popup {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }

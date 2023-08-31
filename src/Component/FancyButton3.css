@@ -1,0 +1,20 @@
+.fancy-button3 {
+    background: #B22222; /* Dark red color */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button3:hover {
+    box-shadow: 0 5px 7px 3px rgba(178, 34, 34, .5); /* Corresponding shade for hover effect */
+    transform: translateY(-3px);
+}
+
+.fancy-button3:active {
+    transform: translateY(-1px);
+}
