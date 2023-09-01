@@ -8,8 +8,42 @@
 .footer .container {
     max-width: 1160px;
     margin: auto;
-    text-align: center;
+    display: flex; /* Adding flex layout */
+    justify-content: space-between;
+    align-items: center;
 }
+
+.footer .col-1, .footer .col-2 {
+    flex: 1;
+    padding: 1rem;
+}
+
+.footer .col-1 {
+    text-align: left;
+}
+
+.footer .col-2 {
+    text-align: right;
+}
+
+/* Additional classes for contact information */
+.footer .contact-info {
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .contact-info a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer .contact-info a:hover {
+    color: #ddd;
+}
+
+/* Existing styles */
 
 .footer ul {
     display: flex;
@@ -34,31 +68,10 @@
     height: auto;
 }
 
-.upleft {
-    text-align: top;
-    text-align: center;
-    padding-top: 0rem;
-}
-
 .upright {
-    text-align: top;
     text-align: right;
-    padding-top: 0rem;
 }
 
 .bottomright {
-    text-align: bottom;
     text-align: right;
-    padding-top: 0rem;
 }
-
-
-.line {
-    margin-bottom: 1rem;
-}
-
-
-
-
-
-

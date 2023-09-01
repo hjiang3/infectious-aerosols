@@ -30,12 +30,11 @@ function App() {
       <Navbar />
       <Hero saveForComparison={saveForComparison} />
 
-      {/*
+
       <Compare comparisonData={comparisonData} setComparisonData={setComparisonData} />
-     
-      <Testimonials />
+
       
-      <Demo />*/}
+      <Demo />
       
       <Footer />
       {modalIsOpen && (

@@ -36,7 +36,7 @@ const Navbar = () => {
   className='logo' 
   onClick={(e) => {
     e.preventDefault();
-    window.location.href="https://chaium.github.io/0301/";
+    window.location.href="https://centerforthebuiltenvironment.github.io/infectious-aerosols/";
   }}
 >
   <img src={logo} alt='logo' />

@@ -1,63 +1,72 @@
 .demo {
     margin: 5rem auto;
-    padding: 1rem;
+    padding: 2rem;
     width: 100%;
+    background-color: #ffffff;
 }
 
 .demo .container {
     width: 1240px;
+    height: 300px;
     margin: auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.demo .col-1 {
-    padding: 1rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
-.demo .col-1 p:nth-child(1) {
-    font-size: 1.8rem;
-    font-style: italic;
+.demo .col-1,
+.demo .col-2 {
+    flex: 1;
+    padding: 2rem;
 }
 
-.demo .col-1 p:nth-child(2) {
+.demo .col-1 h1 {
     font-size: 3rem;
-    font-weight: 600;
-    margin: .5rem 0;
-}
-
-.demo .col-1 p:nth-child(3) {
-    font-size: 1.2rem;
     margin-bottom: 1rem;
 }
 
+.demo .col-1 p {
+    font-size: 1.2rem;
+    font-weight: normal;
+    line-height: 1.6;
+    margin: .5rem 0;
+}
+
+.demo .col-1 button {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    cursor: pointer;
+}
 
 .demo .col-2 {
-    margin: auto;
+    text-align: right; 
 }
 
-
-@media screen and (max-width: 940px) {
-    .demo .container {
-        max-width: 100%;
-        grid-template-columns: 1fr;
-        grid-gap: 30px;
-    }
-
-    .demo iframe {
-        width: 100%;
-        height: auto;
-    }
+.demo .col-2 h2 {
+    font-size: 1.8rem;
+    color: #666;
 }
 
+.demo .col-2 p {
+    font-size: 1.5rem;
+    margin: .5rem 0;
+}
 
+.demo .col-2 button {
+    padding: 0.5rem 1rem;
+    width: 35%; /* Stretch to fit the <p> element */
+    font-size: 1rem;
+    cursor: pointer;
+    background: #999; /* Gray background */
+    color: white; /* Text color */
+    font-weight: normal; /* Text is not bold */
+    border: none;
+    border-radius: 3px; /* Slightly rounded corners */
+    transition: background 0.3s ease-in-out; /* Transition effect for smoother color change */
+}
 
-
-
-
-
+.demo .col-2 button:hover {
+    background: #666; /* Darker gray when hovered */
+}
 
 
 

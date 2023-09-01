@@ -1346,7 +1346,7 @@ useEffect(() => {
         style={{ display: 'block', margin: '0 auto', textAlign: 'center' }}
         onClick={() => setShowPopup(true)}
       >
-        {showUnit ? 'Units and Percentile' : 'Units and Percentile'}
+        {showUnit ? 'Percentile' : 'Percentile'}
       </button>
 
       <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
@@ -1355,6 +1355,7 @@ useEffect(() => {
 
       {showPopup && (
   <div className="popup">
+    {/*
     <label htmlFor="units" style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Units</label>
     <br/>
 
@@ -1375,7 +1376,8 @@ useEffect(() => {
         ))}
       </div>
     </div>
-    <br/>
+        */}
+       <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
 
     <label style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Percentile of the Result</label>
     <br/>
@@ -3431,7 +3433,7 @@ const LANCETInputs = () => (
         style={{ display: 'block', margin: '0 auto', textAlign: 'center' }}
         onClick={() => setShowPopup(true)}
       >
-               {showUnit ? 'Units and Percentile' : 'Units and Percentile'}
+               {showUnit ? 'Percentile' : 'Percentile'}
       </button>
 
       <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
@@ -3440,6 +3442,7 @@ const LANCETInputs = () => (
 
       {showPopup && (
   <div className="popup">
+ {/*
     <label htmlFor="units" style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Units</label>
     <br/>
 
@@ -3460,7 +3463,8 @@ const LANCETInputs = () => (
         ))}
       </div>
     </div>
-    <br/>
+        */}
+      <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
 
     <label style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Percentile of the Result</label>
     <br/>
@@ -5564,7 +5568,7 @@ const TargetInputs = () => (
       style={{ display: 'block', margin: '0 auto', textAlign: 'center' }}
       onClick={() => setShowPopup(true)}
     >
-              {showUnit ? 'Units and Percentile' : 'Units and Percentile'}
+              {showUnit ? 'Percentile' : 'Percentile'}
       </button>
 
       <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
@@ -5573,6 +5577,7 @@ const TargetInputs = () => (
 
       {showPopup && (
   <div className="popup">
+     {/*
     <label htmlFor="units" style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Units</label>
     <br/>
 
@@ -5593,7 +5598,8 @@ const TargetInputs = () => (
         ))}
       </div>
     </div>
-    <br/>
+        */}
+      <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
 
     <label style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Percentile of the Result</label>
     <br/>
@@ -7736,7 +7742,7 @@ const ShortInputs = () => (
       style={{ display: 'block', margin: '0 auto', textAlign: 'center' }}
       onClick={() => setShowPopup(true)}
     >
-             {showUnit ? 'Units and Percentile' : 'Units and Percentile'}
+             {showUnit ? 'Percentile' : 'Percentile'}
       </button>
 
       <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
@@ -7745,6 +7751,7 @@ const ShortInputs = () => (
 
       {showPopup && (
   <div className="popup">
+    {/*
     <label htmlFor="units" style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Units</label>
     <br/>
 
@@ -7765,7 +7772,8 @@ const ShortInputs = () => (
         ))}
       </div>
     </div>
-    <br/>
+        */}
+      <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
 
     <label style={{ fontSize: '1.1rem', display: 'block', textAlign: 'center', color: 'green' }}>Percentile of the Result</label>
     <br/>
