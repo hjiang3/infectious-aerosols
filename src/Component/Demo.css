@@ -20,12 +20,12 @@
 }
 
 .demo .col-1 h1 {
-    font-size: 3rem;
+    font-size: 2.7rem;
     margin-bottom: 1rem;
 }
 
 .demo .col-1 p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: normal;
     line-height: 1.6;
     margin: .5rem 0;
@@ -42,12 +42,12 @@
 }
 
 .demo .col-2 h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #666;
 }
 
 .demo .col-2 p {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: .5rem 0;
 }
 

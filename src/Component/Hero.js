@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef, PureComponent } from 'react';
 import './custom-plot.css'; // Import the custom CSS file
 import Plot from 'react-plotly.js';
 import {  ResponsiveContainer, AreaChart, XAxis, YAxis, Area, ReferenceLine, ReferenceArea } from 'recharts';
-import {exhale, D}  from "../Dataset/Jet";
+import { upper } from "../Function/Function";
+import { central } from "../Function/Function";
+import { lower } from "../Function/Function";
+import { ft_m } from "../Function/Function";
+import { m_ft } from "../Function/Function";
 import './FancyButton.css';
 import './FancyButton2.css';
 import './FancyButton3.css';
@@ -28,6 +32,7 @@ const Hero = ({saveForComparison}) => {
   const [graphChoice, setGraphChoice] = useState("Filter Efficiency vs. Outdoor Air");
   const [graphChoiceT, setGraphChoiceT] = useState("Filter Efficiency vs. Outdoor Air");
   const [graphChoice2, setGraphChoice2] = useState("Equivalent Air Change Rate");
+  const [graphChoiceD, setGraphChoiceD] = useState("Turbulent Jet and Distance");
   const [resultGraph, setResultGraph] = useState("Estimated Infection Risk");
   const [unitChoice, setUnitChoice] = useState("cfm");
   const [occupancyCategory, setOccupancyCategory] = useState("Commercial");
@@ -565,6 +570,89 @@ if (randomValue < standing / 100) {
 
 }
 
+function Breathing_calculation(type111, type222, type333, type444, type555, 
+  resting, standing, light, moderate, heavy, 
+  BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+  BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+  BR5mu, BR5sigma, BR5min, BR5max) {
+
+  const simulations = 1000;
+  const results = [];
+
+
+  for (let i = 0; i < simulations; i++) {
+    let BR; // Declare the variables
+
+    BR= BR_calculation(type111, type222, type333, type444, type555, 
+      resting, standing, light, moderate, heavy, 
+      BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+      BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+      BR5mu, BR5sigma, BR5min, BR5max)
+
+      results.push(BR); 
+  }
+  return results;
+}
+
+function V_calculation(breathing, whispered, voiced, coughing, whispering, speaking, 
+   maskInfector) {
+
+ 
+  let V1, V2, V3, V4, V5, V6, final_velocity; // Declare the variables
+ 
+V1 = 1.5;
+ 
+V2 = (1.5 + 3.9) / 2;
+
+V3 = 3.9;
+
+V4 = 11.7;
+
+V5 = (1.5 + 3.9) / 2;
+
+V6 = 3.9;
+
+ const randomValue = Math.random();
+ 
+ if (randomValue < whispered / 100) {
+  final_velocity = V2;
+ } else if (randomValue < (whispered + voiced) / 100) {
+  final_velocity = V3;
+ } else if (randomValue < (whispered + voiced + coughing) / 100) {
+  final_velocity = V4;
+ } else if (randomValue < (whispered + voiced + coughing + whispering) / 100) { 
+  final_velocity = V5;
+   } else if (randomValue < (whispered + voiced + coughing + whispering + speaking) / 100) { 
+    final_velocity = V6;
+ } else {
+  final_velocity = V1;
+    }
+
+    if (maskInfector > 0) {
+      final_velocity = final_velocity/2
+    }
+ 
+    return final_velocity;
+   }
+
+   function Velocity_calculation(breathing, whispered, voiced, coughing, whispering, speaking, 
+    maskInfector) {
+ 
+    const simulations = 1000;
+    const results = [];
+
+
+    for (let i = 0; i < simulations; i++) {
+      let V; // Declare the variables
+
+      V = V_calculation(breathing, whispered, voiced, coughing, whispering, speaking, 
+        maskInfector)
+
+        results.push(V); 
+    }
+    return results;
+  }
+
 
    function ER_calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
     typeCv, CVmu, CVsigma, CVmin, CVmax,
@@ -685,6 +773,8 @@ function natural_calculation(typeInact, infilmin, infilmax, dmin, dmax, inactmin
 
  }
 
+ 
+
 function risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
   typeCv, CVmu, CVsigma, CVmin, CVmax,
   type111, type222, type333, type444, type555, 
@@ -713,7 +803,11 @@ function risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
   const simulations = 10000;
   const volume = floorArea * height * 0.02831685;
 
+  
+
   const results = {
+    TE: [],
+    INT: [],
     IR: [],
     AR: [],
     Estimated: [],
@@ -785,13 +879,139 @@ function risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
       const reproduction = infected / Infector
       const aRisk = (1 - (1 - iRisk / 100) ** Final_Susceptible) * 100
 
+
+    results.TE.push(Total_Emission);
+    results.INT.push(IntQuanta);
     results.IR.push(iRisk);
-    results.AR.push(aRisk);
+    results.AR.push(aRisk); 
     results.Estimated.push(infected);
     results.Reproduction.push(reproduction);
   }
 
   return results;
+}
+
+const feet = Array.from(
+  { length: (20 - 0) / 0.01 + 1 },
+  (value, index) => 0 + index * 0.01
+  );
+
+  const precomputedVelocity = Velocity_calculation(breathing, whispered, voiced, coughing, whispering, speaking, maskInfector).sort((a, b) => a - b);
+
+
+  const exhale = feet.map(x => ({
+    distance: x,
+    jet: [
+      m_ft(upper(ft_m(x), 20.25, precomputedVelocity[Math.floor(percentile * 10)])),
+      m_ft(lower(ft_m(x), 20.25, precomputedVelocity[Math.floor(percentile * 10)]))
+    ]
+  }));
+  
+  let D;
+  for (let i = 0; i < exhale.length; i++) {
+    if (lower(ft_m(feet[i] ), 20.25, precomputedVelocity[Math.floor(percentile * 10)]) === null) {
+      D = Math.round(feet[i] * 1000) / 1000;  // Use feet[i] instead of i
+      break;
+    }
+  }
+
+  const DD = parseFloat(D.toFixed(1));
+
+function distance_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+  typeCv, CVmu, CVsigma, CVmin, CVmax,
+  type111, type222, type333, type444, type555, 
+  resting, standing, light, moderate, heavy, 
+  BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+  BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+  BR5mu, BR5sigma, BR5min, BR5max,
+  ACM, type1, type2, type3, type4, type5, type6, 
+  breathing, whispered, voiced, coughing, whispering, speaking, 
+  EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+  EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+  EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+  EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+  EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+  EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+  EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+  EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+  EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+  maskInfector, maskSus,
+  infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+  floorArea, height, occupiedPeriod, immunityProportion,
+  outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+  typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma) {
+
+      const Total_Emission = risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+        typeCv, CVmu, CVsigma, CVmin, CVmax,
+        type111, type222, type333, type444, type555, 
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max,
+        ACM, type1, type2, type3, type4, type5, type6, 
+        breathing, whispered, voiced, coughing, whispering, speaking, 
+        EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+        EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+        EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+        EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+        EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+        EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+        EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+        EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+        EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+        maskInfector, maskSus,
+        infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+        floorArea, height, occupiedPeriod, immunityProportion,
+        outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+        typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+      ).TE.sort((a, b) => a - b)[Math.floor(percentile * 100)];
+
+      const int = risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+        typeCv, CVmu, CVsigma, CVmin, CVmax,
+        type111, type222, type333, type444, type555, 
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max,
+        ACM, type1, type2, type3, type4, type5, type6, 
+        breathing, whispered, voiced, coughing, whispering, speaking, 
+        EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+        EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+        EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+        EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+        EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+        EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+        EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+        EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+        EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+        maskInfector, maskSus,
+        infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+        floorArea, height, occupiedPeriod, immunityProportion,
+        outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+        typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+      ).INT.sort((a, b) => a - b)[Math.floor(percentile * 100)];
+
+      const Breathing = Breathing_calculation(type111, type222, type333, type444, type555,  
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max).sort((a, b) => a - b)[Math.floor(percentile * 10)];
+
+      let d_int;
+
+      if (distance < DD) {
+        d_int = 1 / (ft_m(distance) * 16) * (Total_Emission / Breathing) * occupiedPeriod/60 + (1 - 1 / (ft_m(distance) * 16)) * int
+
+      } else if (distance >= DD + 3.28) {
+        d_int = int 
+      } else {
+d_int = (1 / (ft_m(DD) * 16) * (Total_Emission / Breathing) * occupiedPeriod/60 + (1 - 1 / (ft_m(DD) * 16)) * int) * (ft_m(DD) + 1 - ft_m(distance)) +
+int * (ft_m(distance) - ft_m(DD))
+
+      }
+
+return (1 - Math.exp(-1 * Breathing * d_int)) * 100;
+
 }
 
  // QuickSelect algorithm
@@ -828,7 +1048,6 @@ function partition(nums, left, right, pivotIndex) {
 
   return storeIndex;
 }
-
 
 const emission = () => {
 let emissions = [];
@@ -1578,7 +1797,7 @@ useEffect(() => {
         setOccupantNumber(12);
       }
     }}
-    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '130px' }}
+    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '90px' }}
   >
     <option value="IRMM">IRMM</option>
     <option value="Normal">Normal</option>
@@ -3665,7 +3884,7 @@ const LANCETInputs = () => (
         setOccupantNumber(12);
       }
     }}
-    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '130px' }}
+    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '90px' }}
   >
     <option value="IRMM">IRMM</option>
     <option value="Normal">Normal</option>
@@ -5887,7 +6106,7 @@ const TargetInputs = () => (
         setOccupantNumber(12);
       }
     }}
-    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '130px' }}
+    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '90px' }}
   >
     <option value="IRMM">IRMM</option>
     <option value="Normal">Normal</option>
@@ -8021,7 +8240,7 @@ const ShortInputs = () => (
         setOccupantNumber(12);
       }
     }}
-    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '130px' }}
+    style={{ fontSize: '0.9rem', marginLeft: '5px', marginRight: '20px', width: '90px' }}
   >
     <option value="IRMM">IRMM</option>
     <option value="Normal">Normal</option>
@@ -10573,7 +10792,7 @@ return (
   floorArea, height, occupiedPeriod, immunityProportion,
   outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
   typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
-).IR.sort((a, b) => a - b)[Math.floor(percentile * 100)]).toFixed(1)}%
+).AR.sort((a, b) => a - b)[Math.floor(percentile * 100)]).toFixed(1)}%
       </span>
 
       <span
@@ -11797,7 +12016,241 @@ return (
 </>
 )}
 
+
+{selectedTab === "Short" && (
+    <>
+<div className="card2">
+    <div className={
+        distance < DD ? 'd-short' : 
+        distance <= (DD + 3.28) ? 'd-between' : 
+        'd-long'
+    }>
+        {
+            distance < DD ? "Short-range Zone" : 
+            distance >= (DD + 3.28) ? "Long-range Zone" : 
+            "Between"
+        }
+    </div>
+
+    <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          marginLeft: '0px',
+          fontFamily: 'Arial',
+          fontSize: '0.95rem',
+        }}
+      >
+       Distance: {distance} ft&emsp;Exhaled Velocity: {parseFloat(ft_m(Velocity_calculation(breathing, whispered, voiced, coughing, whispering, speaking, 
+    maskInfector).sort((a, b) => a - b)[Math.floor(percentile * 10)])).toFixed(1)} ft/s&emsp;Individual Risk: {parseFloat(distance_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+      typeCv, CVmu, CVsigma, CVmin, CVmax,
+      type111, type222, type333, type444, type555, 
+      resting, standing, light, moderate, heavy, 
+      BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+      BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+      BR5mu, BR5sigma, BR5min, BR5max,
+      ACM, type1, type2, type3, type4, type5, type6, 
+      breathing, whispered, voiced, coughing, whispering, speaking, 
+      EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+      EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+      EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+      EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+      EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+      EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+      EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+      EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+      EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+      maskInfector, maskSus,
+      infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+      floorArea, height, occupiedPeriod, immunityProportion,
+      outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+      typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma)).toFixed(1)}%
+      </span>
+
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          marginLeft: '0px',
+          fontFamily: 'Arial',
+          fontSize: '0.95rem',
+          color: risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+            typeCv, CVmu, CVsigma, CVmin, CVmax,
+            type111, type222, type333, type444, type555, 
+            resting, standing, light, moderate, heavy, 
+            BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+            BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+            BR5mu, BR5sigma, BR5min, BR5max,
+            ACM, type1, type2, type3, type4, type5, type6, 
+            breathing, whispered, voiced, coughing, whispering, speaking, 
+            EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+            EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+            EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+            EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+            EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+            EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+            EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+            EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+            EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+            maskInfector, maskSus,
+            infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+            floorArea, height, occupiedPeriod, immunityProportion,
+            outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+            typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+          ).IR.sort((a, b) => a - b)[Math.floor(percentile * 100)] < target ? "SAFER" : risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+            typeCv, CVmu, CVsigma, CVmin, CVmax,
+            type111, type222, type333, type444, type555, 
+            resting, standing, light, moderate, heavy, 
+            BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+            BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+            BR5mu, BR5sigma, BR5min, BR5max,
+            ACM, type1, type2, type3, type4, type5, type6, 
+            breathing, whispered, voiced, coughing, whispering, speaking, 
+            EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+            EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+            EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+            EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+            EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+            EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+            EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+            EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+            EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+            maskInfector, maskSus,
+            infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+            floorArea, height, occupiedPeriod, immunityProportion,
+            outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+            typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+          ).IR.sort((a, b) => a - b)[Math.floor(percentile * 100)] < target2 ? "WARNING" : "DANGER"
+        }}
+      >
+
+      </span>
+
+      <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
+
+
+
+      <button
+        className={"fancy-button4"}
+        style={{ fontSize: '14px', padding: '0 15px', height: '32px' }}
+        onClick={() => setShowSummary(!showSummary)}
+      >
+        {showSummary ? 'Hide Summary: Current Status' : 'Show Summary: Current Status'}
+      </button>
+
+      <span style={{ lineHeight: '0.5' }}>&nbsp;</span>
+
+      {showSummary && selectedTab === "Short" && (
+
+<div>
+
+<span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            marginLeft: '0px',
+            fontFamily: 'Arial',
+            fontSize: '0.9rem',
+            color: 'rgb(50,50,50)'
+          }}
+        >
+
+     <div>
+       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+       [ HVAC ]&emsp;OA: {convertedOutdoorAir} {unitChoice}&emsp;RA: {(convertedSupplyAir - convertedOutdoorAir).toFixed(1)} {unitChoice} ({((supplyAir - outdoorAir) / supplyAir * 100).toFixed(1)}%)&emsp;Filter: {filter*100}%
+         <br/>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;UVC Inactivation: {convertedHVACUV}%&emsp;Air Treatment: {convertedHVACTreatment} {unitChoice}
+       </div>
+       [ In Room ]&emsp;Air Cleaner: {convertedRoomAC} {unitChoice}&emsp;UVC: {convertedRoomUV} cfm&emsp;Air Treatment: {convertedRoomTreatment} {unitChoice} 
+       <br/>
+       [ Nonengineering ]&emsp;{maskInfector === "0" && maskSus === "0" ? "No Mask" : "Mask On"}
+     </div>
+   </span>
+   </div>
+ )}
+ </div>
+  
+    </>
+
+)}
+
 <br/>
+
+{selectedTab === "Short" && (
+<>
+{/*
+<div className="graph-choice">
+      <label htmlFor="graphChoiceD" style={{fontSize: '0.9rem'}}> Graph: </label>
+      <select
+        id="graphChoiceD"
+        value={graphChoiceD}
+        onChange={(e) => setGraphChoiceD(e.target.value)}
+        style={{ fontSize: '0.9rem', marginRight: '20px' }}
+      >
+        <option value="Turbulent Jet and Distance">
+        Turbulent Jet and Distance Analysis
+        </option>
+        <option value="Infection Risk by Distance">
+        Infection risk by distance
+        </option>
+
+      </select>
+
+      </div>
+
+*/}
+
+
+    
+<div style={{ width: '100%', height: '250px' }}>
+<ResponsiveContainer width='100%' height='100%'>
+        <AreaChart data={exhale} margin={{ top: 20, right: 70, left: 70, bottom: 20 }}>
+             
+                <XAxis 
+                    dataKey="distance" 
+                    ticks={[0, 5, 10, 15, 20]}
+                    tick={{ fontSize: '1rem' }}
+                    label={{
+                        value: "Distance between Infector and Susceptible (ft)",
+                        position: 'bottom',
+                        offset: 0,
+                        style: { fontSize: '1rem', color: '#222222' }
+                    }}
+                />
+                
+                <YAxis 
+                    ticks={[0, 1.64, 3.28]}
+                    tick={{ fontSize: '1rem' }}
+                    tickFormatter={tick => {
+                        if (tick === 3.28) return '+1.6 ft';
+                        if (tick === 1.64) return 'Exhalation';
+                        if (tick === 0) return '-1.6 ft';
+                        return tick.toString();
+                    }}
+
+                />
+
+
+            <ReferenceArea x1={0} x2={DD} y1={0} y2={3.28} label={{ value: "Short-range", position: "insideBottom", style: { fontSize: '1rem' } }} fillOpacity={0.15} fill="red" />
+            <ReferenceArea x1={DD} x2={DD + 3.28} y1={0} y2={3.28} 
+               label={{ position: "insideBottom", style: { fontSize: '1rem' } }} 
+               fillOpacity={0.2} 
+               fill="darkorange" />
+            <ReferenceArea x1={DD + 3.28} x2={20} y1={0} y2={3.28} label={{ value: "Long-range", position: "insideBottom", style: { fontSize: '1rem' } }} fillOpacity={0.2} fill="gold" />
+
+            <Area dataKey="jet" stroke="none"  fillOpacity={0.7} fill="#8884d8" />
+
+
+            <ReferenceLine x={distance} stroke="grey" strokeDasharray="3 3" strokeOpacity={0.5}
+            label={{ value: `${distance} ft`, position: 'top', style: { fontSize: '1rem', color: 'black' } }} />
+
+        </AreaChart>
+    </ResponsiveContainer>
+    </div>
+
+    </>
+    )}
+
 
 {selectedTab === "LANCET" && (
 
@@ -11823,7 +12276,7 @@ return (
         </option>
 
       </select>
-
+{/*
       <label htmlFor="unitChoice" style={{ fontSize: '0.9rem'}}>Unit: </label>
 <select
 id="unitChoice"
@@ -11834,18 +12287,8 @@ style={{ fontSize: '0.9rem', marginRight: '20px' }}
 <option value="cfm">
 cfm
 </option>
-{/*
-<option value="cfm/p">
-cfm/p
-</option>
-<option value="cfm/ft²">
-cfm/ft²
-</option>
-<option value="h⁻¹">
-h⁻¹
-</option>
-*/}
 </select>
+*/}
     </div>
 
 )}
@@ -11877,7 +12320,8 @@ h⁻¹
     */}
   </select>
 
-  <label htmlFor="unitChoice" style={{ fontSize: '0.9rem'}}>Unit: </label>
+{/*
+      <label htmlFor="unitChoice" style={{ fontSize: '0.9rem'}}>Unit: </label>
 <select
 id="unitChoice"
 value={unitChoice}
@@ -11887,18 +12331,8 @@ style={{ fontSize: '0.9rem', marginRight: '20px' }}
 <option value="cfm">
 cfm
 </option>
-{/*
-<option value="cfm/p">
-cfm/p
-</option>
-<option value="cfm/ft²">
-cfm/ft²
-</option>
-<option value="h⁻¹">
-h⁻¹
-</option>
-*/}
 </select>
+*/}
 </div>
 
 )}
@@ -11927,7 +12361,8 @@ h⁻¹
     */}
   </select>
 
-  <label htmlFor="unitChoice" style={{ fontSize: '0.9rem'}}>Unit: </label>
+  {/*
+      <label htmlFor="unitChoice" style={{ fontSize: '0.9rem'}}>Unit: </label>
 <select
 id="unitChoice"
 value={unitChoice}
@@ -11937,72 +12372,12 @@ style={{ fontSize: '0.9rem', marginRight: '20px' }}
 <option value="cfm">
 cfm
 </option>
-{/*
-<option value="cfm/p">
-cfm/p
-</option>
-<option value="cfm/ft²">
-cfm/ft²
-</option>
-<option value="h⁻¹">
-h⁻¹
-</option>
-*/}
 </select>
+*/}
 </div>
 
 )}
 
-{selectedTab === "Short" && (
-    <>
-<div style={{ width: '100%', height: '250px' }}>
-<ResponsiveContainer width='90%' height='100%'>
-        <AreaChart data={exhale} margin={{ top: 20, right: 70, left: 30, bottom: 25 }}>
-             
-                <XAxis 
-                    dataKey="distance" 
-                    ticks={[0, 5, 10, 15, 20]}
-                    tick={{ fontSize: '1rem' }}
-                    label={{
-                        value: "Distance between Infector and Susceptible (ft)",
-                        position: 'bottom',
-                        offset: 0,
-                        style: { fontSize: '1rem', color: '#222222' }
-                    }}
-                />
-                
-                <YAxis 
-                    ticks={[0, 1.64, 3.28]}
-                    tick={{ fontSize: '1rem' }}
-                    tickFormatter={tick => {
-                        if (tick === 3.28) return '+1.6 ft';
-                        if (tick === 1.64) return 'Exhalation';
-                        if (tick === 0) return '-1.6 ft';
-                        return tick.toString();
-                    }}
-
-                />
-
-
-            <ReferenceArea x1={0} x2={D} y1={0} y2={3.28} label={{ value: "Short-range", position: "insideBottom", style: { fontSize: '1rem' } }} fillOpacity={0.15} fill="red" />
-            <ReferenceArea x1={D} x2={D + 3.28} y1={0} y2={3.28} 
-               label={{ position: "insideBottom", style: { fontSize: '1rem' } }} 
-               fillOpacity={0.2} 
-               fill="darkorange" />
-            <ReferenceArea x1={D + 3.28} x2={20} y1={0} y2={3.28} label={{ value: "Long-range", position: "insideBottom", style: { fontSize: '1rem' } }} fillOpacity={0.2} fill="gold" />
-
-            <Area dataKey="jet" stroke="none"  fillOpacity={0.7} fill="#8884d8" />
-
-
-            <ReferenceLine x={distance} stroke="grey" strokeDasharray="3 3" strokeOpacity={0.5}
-            label={{ value: `${distance} ft`, position: 'top', style: { fontSize: '1rem', color: 'black' } }} />
-
-        </AreaChart>
-    </ResponsiveContainer>
-    </div>
-    </>
-
-)}
 
     <div className="chart">
 

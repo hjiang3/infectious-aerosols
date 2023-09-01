@@ -16,6 +16,7 @@ const Footer = () => {
         <br/>
 
         <p style={{color: '#ccc'}}>Version 1.0 published on 09.01.2023</p>
+                <br/>
     </div>
 
                 <div className='col-2'>

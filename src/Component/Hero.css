@@ -202,3 +202,13 @@ border: 1px solid #ccc;
   color: #777;
   transform: scale(1.2);
 }
+
+.hero .card3 {
+  background-color: #f3f2e7;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial;
+}
