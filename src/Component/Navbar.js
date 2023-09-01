@@ -58,11 +58,6 @@ const Navbar = () => {
                     <li className='nav-item'>
                         <a href='#compare' onClick={handleAddSimulation_2}>Compare</a>
                     </li>
-                    {/*
-                    <li className='nav-item'>
-                        <a href='#testimonials' onClick={closeMenu}>AI Advisor</a>
-                    </li>
-                    */}
 
                     <li className='nav-item'>
                         <a href='#demo' onClick={handleAddSimulation_3}>About</a>

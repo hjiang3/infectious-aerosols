@@ -1305,17 +1305,118 @@ return quickSelect(br_ps, Math.floor(percentile));
     // Handle the addition of a new simulation
     // Your logic to add a new simulation here
 
-    // Get a reference to the #hero element
+    // Get a reference to the #compare element
     const compareElement = document.getElementById('compare');
 
-    // Scroll to the bottom of the #hero section
-    compareElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  };
+    // Scroll to the top of the #compare section
+    compareElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
 
   const handleSaveClick = (event) => {
-    saveForComparison({ floorArea, occupantNumber });
-
+    // Initialize the object with all other fields
+    saveForComparison({
+      occupancyCategory,
+      selectedSubcategory,
+      floorArea,
+      height,
+      occupantNumber,
+      occupiedPeriod,
+      supplyAir,
+      outdoorAir,
+      filter,
+      hvacUV,
+      hvacTreatment,
+      roomAC: roomAC * roomACQ,
+      roomUV: roomUV * roomUVQ,
+      roomTreatment: roomTreatment * roomTreatmentQ,
+      maskInfector,
+      maskSus,
+      totalCADR: outdoorAir + (supplyAir - outdoorAir) * filter +
+      (supplyAir-outdoorAir) * (1 - filter) * hvacUV / 100 +
+      hvacTreatment +
+      roomUV * roomUVQ + roomAC * roomACQ + roomTreatment * roomTreatmentQ,
+      ASHRAE: isCompliant ? "✓" : "✗",
+      LANCET1: getLancetText(LANCET_ach),
+      LANCET2: getLancetText2(LANCET_occ),
+      LANCET3: getLancetText3(totalCADR),
+      LANCET4: getLancetText4(totalCADR),
+      IR: (risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+        typeCv, CVmu, CVsigma, CVmin, CVmax,
+        type111, type222, type333, type444, type555, 
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max,
+        ACM, type1, type2, type3, type4, type5, type6, 
+        breathing, whispered, voiced, coughing, whispering, speaking, 
+        EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+        EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+        EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+        EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+        EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+        EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+        EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+        EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+        EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+        maskInfector, maskSus,
+        infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+        floorArea, height, occupiedPeriod, immunityProportion,
+        outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+        typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+      ).IR.sort((a, b) => a - b)[Math.floor(percentile * 100)]).toFixed(1),
+      AR: (risk_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+        typeCv, CVmu, CVsigma, CVmin, CVmax,
+        type111, type222, type333, type444, type555, 
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max,
+        ACM, type1, type2, type3, type4, type5, type6, 
+        breathing, whispered, voiced, coughing, whispering, speaking, 
+        EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+        EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+        EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+        EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+        EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+        EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+        EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+        EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+        EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+        maskInfector, maskSus,
+        infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+        floorArea, height, occupiedPeriod, immunityProportion,
+        outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+        typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma
+      ).AR.sort((a, b) => a - b)[Math.floor(percentile * 100)]).toFixed(1),
+      drisk: selectedTab === "Short"? (distance_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+        typeCv, CVmu, CVsigma, CVmin, CVmax,
+        type111, type222, type333, type444, type555, 
+        resting, standing, light, moderate, heavy, 
+        BR1mu, BR1sigma, BR1min, BR1max, BR2mu, BR2sigma, BR2min, BR2max, 
+        BR3mu, BR3sigma, BR3min, BR3max, BR4mu, BR4sigma, BR4min, BR4max,  
+        BR5mu, BR5sigma, BR5min, BR5max,
+        ACM, type1, type2, type3, type4, type5, type6, 
+        breathing, whispered, voiced, coughing, whispering, speaking, 
+        EA1mu, EA1sigma, EA1min, EA1max, DD1mu, DD1sigma, DD1min, DD1max,
+        EA2mu, EA2sigma, EA2min, EA2max, DD2mu, DD2sigma, DD2min, DD2max,
+        EA3mu, EA3sigma, EA3min, EA3max, DD3mu, DD3sigma, DD3min, DD3max,
+        EA4mu, EA4sigma, EA4min, EA4max, DD4mu, DD4sigma, DD4min, DD4max,
+        EA5mu, EA5sigma, EA5min, EA5max, DD5mu, DD5sigma, DD5min, DD5max,
+        EA6mu, EA6sigma, EA6min, EA6max, DD6mu, DD6sigma, DD6min, DD6max,
+        EA1_1, EA1_2, EA1_3, EA1_4, EA2_1, EA2_2, EA2_3, EA2_4,
+        EA3_1, EA3_2, EA3_3, EA3_4, EA4_1, EA4_2, EA4_3, EA4_4,
+        EA5_1, EA5_2, EA5_3, EA5_4, EA6_1, EA6_2, EA6_3, EA6_4,
+        maskInfector, maskSus,
+        infectorStatus, infectorNumber, occupantNumber, casesPerDay, infectiousPeriod, unreportedCases,
+        floorArea, height, occupiedPeriod, immunityProportion,
+        outdoorAir, supplyAir, filter, hvacUV, hvacTreatment, roomUV, roomUVQ, roomAC, roomACQ, roomTreatment, roomTreatmentQ,
+        typeInact, infilmin, infilmax, dmin, dmax, inactmin, inactmax, inactmu, inactsigma)).toFixed(1) : "N/A",
+      distance: selectedTab === "Short"? distance : "N/A"
+    });
   };
+  
+  
+
 
   const subcategoriesOptions = {
     "Correctional": ["Cell", "Dayroom"],
@@ -12043,7 +12144,7 @@ return (
         }}
       >
        Distance: {distance} ft&emsp;Exhaled Velocity: {parseFloat(ft_m(Velocity_calculation(breathing, whispered, voiced, coughing, whispering, speaking, 
-    maskInfector).sort((a, b) => a - b)[Math.floor(percentile * 10)])).toFixed(1)} ft/s&emsp;Individual Risk: {parseFloat(distance_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
+    maskInfector).sort((a, b) => a - b)[Math.floor(percentile * 10)])).toFixed(1)} ft/s&emsp;Risk by Distance: {parseFloat(distance_Calculation(typeCi, CiBmin, CiBmax, Cialpha, Cibeta, Cimin, Cimax,
       typeCv, CVmu, CVsigma, CVmin, CVmax,
       type111, type222, type333, type444, type555, 
       resting, standing, light, moderate, heavy, 
