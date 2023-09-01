@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/infectious-aerosols/static/css/main.2caefde8.css",
-    "main.js": "/infectious-aerosols/static/js/main.488878f8.js",
+    "main.js": "/infectious-aerosols/static/js/main.d3d8b00c.js",
     "index.html": "/infectious-aerosols/index.html",
     "main.2caefde8.css.map": "/infectious-aerosols/static/css/main.2caefde8.css.map",
-    "main.488878f8.js.map": "/infectious-aerosols/static/js/main.488878f8.js.map"
+    "main.d3d8b00c.js.map": "/infectious-aerosols/static/js/main.d3d8b00c.js.map"
   },
   "entrypoints": [
     "static/css/main.2caefde8.css",
-    "static/js/main.488878f8.js"
+    "static/js/main.d3d8b00c.js"
   ]
 }
