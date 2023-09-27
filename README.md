@@ -1,3 +1,3 @@
 # Berkeley Infectious Aerosol Tool
 
-Webpage: infectious.cbe.berkeley.edu.
+Webpage: https://infectious.cbe.berkeley.edu/
