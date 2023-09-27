@@ -1,0 +1,6 @@
+/* custom-plot.css */
+
+/* Tilt the hovered labels */
+.gd-hover-layer text {
+    transform: rotate(-90deg);
+  }

@@ -1,0 +1,73 @@
+.demo {
+    margin: 5rem auto;
+    padding: 2rem;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.demo .container {
+    width: 1240px;
+    height: 300px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.demo .col-1,
+.demo .col-2 {
+    flex: 1;
+    padding: 2rem;
+}
+
+.demo .col-1 h1 {
+    font-size: 2.7rem;
+    margin-bottom: 1rem;
+}
+
+.demo .col-1 p {
+    font-size: 1.1rem;
+    font-weight: normal;
+    line-height: 1.6;
+    margin: .5rem 0;
+}
+
+.demo .col-1 button {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+.demo .col-2 {
+    text-align: right; 
+}
+
+.demo .col-2 h2 {
+    font-size: 1.6rem;
+    color: #666;
+}
+
+.demo .col-2 p {
+    font-size: 1.3rem;
+    margin: .5rem 0;
+}
+
+.demo .col-2 button {
+    padding: 0.5rem 1rem;
+    width: 35%; /* Stretch to fit the <p> element */
+    font-size: 1rem;
+    cursor: pointer;
+    background: #999; /* Gray background */
+    color: white; /* Text color */
+    font-weight: normal; /* Text is not bold */
+    border: none;
+    border-radius: 3px; /* Slightly rounded corners */
+    transition: background 0.3s ease-in-out; /* Transition effect for smoother color change */
+}
+
+.demo .col-2 button:hover {
+    background: #666; /* Darker gray when hovered */
+}
+
+
+
+

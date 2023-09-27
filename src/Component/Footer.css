@@ -1,0 +1,75 @@
+.footer {
+    width: 100%;
+    background-color: rgb(0,46,98);
+    color: #eee;
+    padding: 3rem 1rem;
+}
+
+.footer .container {
+    max-width: 1160px;
+    margin: auto;
+    display: flex; /* Adding flex layout */
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.footer .col-1 {
+    flex: 3;
+    text-align: left;
+}
+
+.footer .col-2 {
+    flex: 1;
+    text-align: right;
+}
+
+/* Additional classes for contact information */
+.footer .contact-info {
+    font-size: 1rem;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .contact-info a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer .contact-info a:hover {
+    color: #ddd;
+}
+
+/* Existing styles */
+
+.footer ul {
+    display: flex;
+    justify-content: center;
+}
+
+.footer li {
+    padding: 1rem;
+}
+
+.footer li a {
+    color: #fff;
+}
+
+.footer li a:hover {
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+.footer img {
+    width: 180px;
+    height: auto;
+}
+
+.upright {
+    text-align: right;
+}
+
+.bottomright {
+    text-align: right;
+}

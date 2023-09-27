@@ -1,0 +1,163 @@
+.compare {
+    background-color: #f8f8f8;
+    margin: auto;
+    width: 100%;
+    height: auto; /* Adjust the desired height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+}
+
+.compare h2 {
+    font-size: 3rem;
+    padding-left: 1rem; /* Add desired padding value */
+    font-weight: 600;
+    color: #333333;
+}
+
+.compare table {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    table-layout: fixed; /* Set table layout to fixed */
+}
+
+.compare table th,
+.compare table td {
+    padding: 10px; /* Add padding to table cells */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    width: 160px; /* Set the width for each column */
+}
+
+.compare .blue-cell {
+    color: rgb(7,114,185);
+  }
+
+  .compare table th:first-child,
+  .compare table td:first-child {
+    padding: 10px; /* Add padding to table cells */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    width: 160px; /* Set the width for each column */
+    color: rgb(7,114,185); /* Make the text blue */
+    font-weight: normal; /* Make the text non-bold */
+  }
+
+.compare table th:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.compare table th:hover .close-button {
+    display: inline-block;
+}
+
+.compare table .close-button {
+    display: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.compare table .close-button::after {
+    content: "x";
+    margin-left: 5px;
+}
+
+.compare .table-container {
+    padding: 0 20px; /* Add padding on the left and right */
+    overflow-x: auto; /* Add horizontal scroll if needed */
+}
+
+.compare .add-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.compare .add-button {
+    background: rgb(47, 134, 205);
+    border: none;
+    border-radius: 50%; /* Set border-radius to 50% for a circle */
+    color: white;
+    height: 48px;
+    width: 48px; /* Add a fixed width to make it a circle */
+    cursor: pointer;
+    font-size: 40px;
+    transition: 0.3s;
+    position: relative;
+
+}
+
+.compare .add-button:hover {
+    box-shadow: 0 5px 7px 3px rgba(47, 134, 205, 0.5);
+    transform: translateY(-3px);
+}
+
+.compare .add-button:active {
+    transform: translateY(-1px);
+}
+
+.compare .card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    height: flex;
+    width: 1100px;
+    font-family: Arial;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.compare .container {
+    width: 1160px;
+    height: flex;
+    margin: 0 auto;
+    padding: 4rem 0rem;
+    font-size: 1rem;
+}
+
+.compare .remove-button {
+    display: inline-block;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1.2rem;
+    padding: 0;
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .compare .remove-button:hover {
+    color: #777;
+    transform: scale(1.2);
+  }
+
+  .compare .bold-text {
+    font-weight: bold;
+  }
+  .export-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .export-button {
+    background: rgb(47, 134, 205);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .export-button:hover {
+    background: rgb(30, 111, 170);
+  }
+  
+  .export-button:active {
+    transform: translateY(1px);
+  }

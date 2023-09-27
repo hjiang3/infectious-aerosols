@@ -1,0 +1,276 @@
+.fancy-button {
+    background:  rgb(7,114,185);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button:hover {
+    box-shadow: 0 5px 7px 3px rgba(7, 114, 185, .5);
+    transform: translateY(-3px);
+}
+
+.fancy-button:active {
+    transform: translateY(-1px);
+}
+
+.fancy-button2 {
+    background: green; /* Lighter green color */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button2:hover {
+    box-shadow: 0 5px 7px 3px rgba(0, 128, 0, .5); /* Corresponding shade for hover effect */
+    transform: translateY(-3px);
+}
+
+.fancy-button2:active {
+    transform: translateY(-1px);
+}
+
+.fancy-button3 {
+    background: #B22222; /* Dark red color */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button3:hover {
+    box-shadow: 0 5px 7px 3px rgba(178, 34, 34, .5); /* Corresponding shade for hover effect */
+    transform: translateY(-3px);
+}
+
+.fancy-button3:active {
+    transform: translateY(-1px);
+}
+
+.fancy-button4 {
+    background:  rgb(47, 134, 205); /* Adjusted blue color, slightly stronger */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.fancy-button4:hover {
+    box-shadow: 0 5px 7px 3px rgba(47, 134, 205, .5); /* Corresponding adjusted shade for hover effect */
+    transform: translateY(-3px);
+}
+
+.fancy-button4:active {
+    transform: translateY(-1px);
+}
+
+.fancy-button5 {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: rgb(7,114,185);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .fancy-button5:hover {
+    font-size: 1.2rem;
+  }
+  
+  .fancy-button5:active {
+    transform: translateY(-1px);
+  }
+
+  .fancy-button6 {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: green;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .fancy-button6:hover {
+    font-size: 1.2rem;
+  }
+  
+  .fancy-button6:active {
+    transform: translateY(-1px);
+  }
+
+  .popup {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .fancy-buttonD {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: gray;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .fancy-buttonD:hover {
+    font-size: 1rem;
+  }
+  
+  .fancy-buttonD:active {
+    transform: translateY(-1px);
+  }
+
+  .popup2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 900px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .popup22 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 700px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .popupS {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 650px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+    .popupS {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 650px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .popupR {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Lighter grey */
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 500px; /* Adjust as needed */
+    height: fit-content; /* Adjust as needed */
+    font-family: Arial;
+  }
+
+  .fancy-buttonS {
+    background: lightgray;
+    border: none;
+    border-radius: 3px;
+    color: black;
+    height: 48px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    outline: none;
+}
+
+.fancy-buttonS:hover {
+    box-shadow: 0 5px 7px 3px rgba(160, 190, 225, .5);
+    transform: translateY(-3px);
+}
+
+.fancy-buttonS:active {
+    transform: translateY(-1px);
+}
+
+.fancy-buttonS.selected {
+    background: rgb(160, 190, 225);
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    justify-items: center;
+  }
+
+  
+
+
+
+
+

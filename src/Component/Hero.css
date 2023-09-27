@@ -1,0 +1,235 @@
+.hero {
+    width: 100%;
+}
+
+.hero .container {
+    width: 1160px;
+    margin: 4rem auto;
+    padding: 4rem 0rem;
+}
+
+.hero h2 {
+    font-size: 2.8rem;
+    text-align: center;
+    color: rgb(150,150,150);
+}
+
+.hero .container .content {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+    margin: -2rem 0;
+}
+
+.hero .card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    height: flex;
+    width: 570px;
+    font-family: Arial;
+}
+
+.hero .card2 {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial;
+}
+
+.hero img {
+    border-radius: 50px;
+    margin-top: -2rem;
+}
+
+
+.hero .card p {
+    color: #787878;
+    font-size: 1.1rem;
+    margin: 12px;
+}
+
+.hero .card span {
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.hero button {
+    margin-top: 1rem;
+}
+
+.hero .container .chart  {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 10px;
+}
+
+.graph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: arial;
+  }
+  
+  .graph-choice {
+    margin-bottom: 1rem;
+  }
+
+.graph-choice label,
+.value-choice label {
+  font-size: 1rem;
+}
+
+.graph-choice select,
+.value-choice select {
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.graph-choice2 {
+  margin-bottom: 1rem;
+}
+
+.graph-choice2 label,
+.value-choice label {
+font-size: 1rem;
+}
+
+.graph-choice2 select,
+.value-choice select {
+font-size: 1rem;
+padding: 5px 10px;
+border-radius: 4px;
+border: 1px solid #ccc;
+}
+
+
+  
+.selections {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+
+.top-navbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin: 0; /* Remove margin */
+  padding: 1rem; /* Adjust padding */
+  font-family: Arial;
+  font-size: 1rem;
+  background-color: rgb(240, 240, 240);
+  height: 45px;
+  width: 100%;
+  transition: 0.3s ease-in;
+  overflow: hidden;
+}
+
+.top-navbar a {
+  color: rgba(0,0,0,.9);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.top-navbar a:hover {
+  padding-bottom: 12px;
+  border-bottom: 3px solid #007bff;
+  font-weight: lighter;
+}
+
+
+
+@media screen and (max-width: 940px) {
+    .hero .container {
+        width: 100%;
+    }
+
+    .hero .container .content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero .card {
+        max-width: 100%;
+        margin: 1rem;
+    }
+}
+
+.hero table {
+  margin-top: 1rem;
+  margin-left: auto;  /* Center the table horizontally */
+  margin-right: auto; /* Center the table horizontally */
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  table-layout: auto; /* Note: 'flex' is not a valid value for table-layout. The valid values are 'auto', 'fixed', and 'inherit'. */
+  max-width: 800px;   /* Or any width that fits your needs */
+  display: block;     /* Allow margins to work properly for centering */
+}
+
+.hero table th,
+.hero table td {
+  padding: 10px; /* Add padding to table cells */
+  text-align: center; /* Change this line to center text in each cell */
+  border-bottom: 1px solid #ddd;
+  width: 125px; /* Set the width for each column */
+  font-weight: normal; /* Add this line to remove bold */
+  color: '#333333';
+}
+
+.remove-button {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.2rem;
+  padding: 0;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  color: #777;
+  transform: scale(1.2);
+}
+
+.hero .card3 {
+  background-color: #f3f2e7;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial;
+}
+
+.top-navbar {
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.top-navbar a {
+  margin: 0 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.top-navbar a.active {
+  color: rgb(7, 114, 185);
+  font-size: 1.1rem;
+}
+
